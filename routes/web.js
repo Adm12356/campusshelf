@@ -10,12 +10,12 @@ var fs = require('fs/promises');
 
 router.use(express.static(path.join(__dirname, '../public')));
 
-var conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'shelf'
-});
+var conn=mysql.createConnection({
+    host : 'b87s755efw6tk028qvi3-mysql.services.clever-cloud.com',
+    user : 'uq0ukp2bdzy1jmpk',
+    password : 'pRylLPBVhgvTBrXeKBrM',
+    database : 'b87s755efw6tk028qvi3'
+})
 var exe = util.promisify(conn.query).bind(conn);
 
 router.use(express.urlencoded({ extended: true }));
