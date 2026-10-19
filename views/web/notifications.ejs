@@ -1,0 +1,33 @@
+<%- include('header.ejs') %>
+
+    <main id="appMain" class="main">
+      <div class="page-heading">
+        <div>
+          <h1>Notifications</h1>
+          <p>Updates from your CampusShelf activity.</p>
+        </div>
+        <% if (notes.length) { %>
+        <form action="/notifications/clear" method="post"><button class="btn btn-light" type="submit">Clear all</button></form>
+        <% } %>
+      </div>
+      <div class="panel">
+        <% if (notes.length) { %>
+        <div id="notificationsList">
+          <% notes.forEach(function(n){ %>
+          <div class="notification">
+            <div class="notice-icon"><%= n.icon || '✦' %></div>
+            <div><strong><%= n.title %> <% if (!n.is_read) { %><span class="new-dot">NEW</span><% } %></strong><p><%= n.message %></p><small><%= ago(n.created_at) %></small></div>
+          </div>
+          <% }) %>
+        </div>
+        <% } else { %>
+        <div id="notificationsEmpty" class="empty-state">
+          <div>♧</div>
+          <h3>You’re all caught up</h3>
+          <p>New activity will appear here.</p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+    </div>
+<%- include('footer.ejs') %>

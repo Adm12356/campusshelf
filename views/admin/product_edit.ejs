@@ -1,0 +1,101 @@
+ <%- include('header.ejs') %>
+
+
+
+      <main class="dashboard-content">
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+              <div>
+                <p class="eyebrow mb-1">Inputs</p>
+                <h1 class="h3 mb-1">Forms</h1>
+                <p class="text-muted mb-0">Reusable form controls, validation states, and field layouts.</p>
+              </div>
+            </div>
+            
+          </div>
+                         <% for(var i=0;i<products.length;i++){ %>
+
+          <section class="row g-3">
+            <div class="col-12 col-xl-12">
+
+              <form class="panel needs-validation"  action="/admin/product_update_save" method="post">
+                <div class="panel-header">
+                    <input type="hidden" name="p_id" value="<%= products[i].p_id %>">
+                  <div>
+                    <h2 class="h5 mb-1 section-title">
+                      <i class="bi bi-ui-checks-grid" aria-hidden="true"></i>
+                      <span>Product Update Form</span>
+                    </h2>
+                    <p class="text-muted mb-0">Bootstrap-ready fields with custom validation feedback.</p>
+                  </div>
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label" >Product Name</label>
+                        <input class="form-control" type="text" name="p_name" id="name" value="<%= products[i].p_name %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Product category *</label>
+                        <select name="p_category" class="form-control">
+                            <option value=""><%= products[i].p_category %></option>
+                            <option>Books</option>
+                            <option>Notes</option>
+                            <option>Stationery</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" >Product Price</label>
+                        <input class="form-control" type="text" name="p_price" id="price" value="<%= products[i].p_price %>">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Item condition *</label>
+                        <select name="p_condition" class="form-control" >
+                            <option value=""><%= products[i].p_condition %></option>
+                            <option>Like new</option>
+                            <option>Good</option>
+                            <option>Used</option>
+                            <option>Heavily used</option>
+                        </select>
+                    </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="formName">Product image1</label>
+                    <img  src="/images/<%= products[i].p_img1 %>" height="100px">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="formName">Product image2</label>
+                    <img  src="/images/<%= products[i].p_img2 %>" height="100px">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="formName">Product image3</label>
+                    <img  src="/images/<%= products[i].p_img3 %>" height="100px">
+                  </div>
+                  
+                  <div class="col-12">
+                    <label class="form-label" for="formMessage">Product Description</label>
+                    <textarea class="form-control" id="formMessage" rows="5" required name="p_desc"  placeholder="Short note..."><%= products[i].p_desc %></textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="formMessage">Product Pickup Address</label>
+                    <textarea class="form-control" id="address" rows="5" required name="address"  placeholder="Short note..." ><%= products[i].address %></textarea>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-send" aria-hidden="true" ></i> Update Product Details
+                  </button>
+                  <button></button>
+                </div>
+              </form>
+            </div>
+          </section>
+                      <% } %>
+
+        </div>
+      </main>
+
+ <%- include('footer.ejs') %>
+

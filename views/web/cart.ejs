@@ -1,0 +1,35 @@
+<%- include('header.ejs') %>
+
+    <main id="appMain" class="main">
+        <div class="page-heading">
+            <div>
+                <h1>Your cart</h1>
+                <p>Keep your study essentials together.</p>
+            </div>
+        </div>
+        <% if (items.length) { %>
+        <div class="panel">
+          <% items.forEach(function(p){ %>
+          <div class="list-row <%= p.status === 'sold' ? 'is-sold' : '' %>">
+            <a href="/product/<%= p.p_id %>"><img src="/images/<%= p.p_img1 %>" alt=""></a>
+            <div class="list-details">
+              <strong><a class="plain-link" href="/product/<%= p.p_id %>"><%= p.p_name %></a></strong>
+              <small><%= p.p_category %> · Listed by <%= p.seller_name %> · 📞 <%= p.contact %></small>
+              <% if (p.status === 'sold') { %><span class="status-pill sold">Sold</span><% } %>
+            </div>
+            <span class="list-price"><%= money(p.p_price) %></span>
+            <form action="/cart/remove/<%= p.p_id %>" method="post"><button class="small-btn" type="submit">Remove</button></form>
+          </div>
+          <% }) %>
+          <div class="cart-summary">
+            <div class="muted">Subtotal (available items)</div>
+            <div class="cart-total"><span>Total</span><span><%= money(total) %></span></div>
+            <p class="hint">Payment is settled directly with each seller. Use the contact numbers above to arrange a pickup.</p>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="panel empty-state"><div>🛒</div><h3>Your cart is empty</h3><p>Find a useful item for your next semester.</p><a class="btn btn-dark" href="/home">Browse products</a></div>
+        <% } %>
+    </main>
+  </div>
+  <%- include('footer.ejs') %>

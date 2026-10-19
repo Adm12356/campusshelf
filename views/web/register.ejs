@@ -1,0 +1,43 @@
+<%- include('header.ejs') %>
+
+    <main id="appMain" class="main">
+        <section class="auth-wrap">
+            <div class="auth-brand">
+                <div class="brand-mark">C</div>
+                <h1>Join CampusShelf</h1>
+                <p>Create an account to buy and sell study essentials.</p>
+            </div>
+            <div class="panel">
+                <% if (err) { %><div class="alert err">That email is already registered. Please log in.</div><% } %>
+                <form id="registerForm" class="form-grid" action="/register_save" method="post">
+                    <div class="field full-field">
+                        <label>Full name *</label>
+                        <input name="name" required placeholder="Your name">
+                    </div>
+                    <div class="field full-field">
+                        <label>Contact number *</label>
+                        <input name="contact" type="tel" required placeholder="Phone number">
+                    </div>
+                    <div class="field full-field">
+                        <label>Address / campus location *</label>
+                        <textarea name="address" required placeholder="Your address or campus pickup point"></textarea>
+                    </div>
+                    <div class="field full-field">
+                        <label>Email *</label>
+                        <input name="email" type="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="field full-field">
+                        <label>Password *</label>
+                        <input name="password" type="password" minlength="4" required placeholder="Enter password">
+                    </div>
+                    <div class="field full-field">
+                        <button class="btn btn-dark full" type="submit">Create account</button>
+                    </div>
+                </form>
+                <p>Already registered? <a class="inline-link" href="/">Log in</a></p>
+            </div>
+        </section>    
+    </main>
+  </div>
+  <%- include('footer.ejs') %>
+

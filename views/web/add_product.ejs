@@ -1,0 +1,82 @@
+<%- include('header.ejs') %>
+<% var editing = !!product; var v = product || {}; %>
+    <main id="appMain" class="main">
+        <div class="page-heading">
+            <div>
+                <h1 id="productFormTitle"><%= editing ? 'Edit listing' : 'List a product' %></h1>
+                <p><%= editing ? 'Update the details of your listing.' : 'Add a book, notes or stationery item for other students.' %></p>
+            </div>
+        </div>
+        <% if (err === 'images') { %><div class="alert err">Please upload all 3 product photos (image files only).</div><% } %>
+        <% if (err === 'category') { %><div class="alert err">Please choose a valid category.</div><% } %>
+
+        <form id="productForm" action="<%= editing ? '/product_update/' + v.p_id : '/product_save' %>" method="post" enctype="multipart/form-data">
+            <div class="panel">
+                <h3>Product information</h3>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Product category *</label>
+                        <select name="p_category" required>
+                            <option value="">Choose a category</option>
+                            <% ['Books','Notes','Stationery','Other'].forEach(function(c){ %><option <%= v.p_category===c?'selected':'' %>><%= c %></option><% }) %>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Product name *</label>
+                        <input name="p_name" required maxlength="90" value="<%= v.p_name || '' %>" placeholder="e.g. Engineering Mathematics textbook">
+                    </div>
+                    <div class="field">
+                        <label>Selling price (₹) *</label>
+                        <input name="p_price" type="number" min="1" step="1" required value="<%= v.p_price || '' %>" placeholder="Enter price">
+                    </div>
+                    <div class="field">
+                        <label>Item condition *</label>
+                        <select name="p_condition" required>
+                            <% ['Like new','Good','Used','Heavily used'].forEach(function(c){ %><option <%= (v.p_condition || 'Good')===c?'selected':'' %>><%= c %></option><% }) %>
+                        </select>
+                    </div>
+                    <div class="field full-field">
+                        <label>Description</label>
+                        <textarea name="p_desc" placeholder="Mention edition, subject, condition, included items..."><%= v.p_desc || '' %></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <h3>Product images <%= editing ? '(leave empty to keep the current photo)' : '(3 required)' %></h3>
+                <% for (var i = 1; i <= 3; i++) { %>
+                <div class="upload-box">
+                    <p><strong>Photo <%= i %> of product</strong></p>
+                    <% if (editing) { %><img class="current-img" src="/images/<%= v['p_img' + i] %>" alt="Current photo <%= i %>"><% } %>
+                    <p class="hint">Choose clear images from different angles.</p>
+                    <input type="file" name="p_img<%= i %>" accept="image/*" <%= editing ? '' : 'required' %>>
+                </div>
+                <% } %>
+            </div>
+
+            <div class="panel">
+                <h3>Seller details</h3>
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Seller name</label>
+                        <input id="sellerName" value="<%= user.name %>" readonly>
+                    </div>
+                    <div class="field">
+                        <label>Contact</label>
+                        <input id="sellerContact" value="<%= user.contact %>" readonly>
+                    </div>
+                    <div class="field full-field">
+                        <label>Pickup / contact address *</label>
+                        <textarea id="sellerAddress" name="address" required><%= editing ? v.address : user.address %></textarea>
+                        <span class="hint">Defaults to the address in your profile. You can change the pickup location for this listing.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="btn btn-light" href="/my_listings">Cancel</a>
+                <button class="btn btn-dark" type="submit"><%= editing ? 'Save changes' : 'Publish listing' %></button>
+            </div>
+        </form>
+    </main>
+  </div>
+  <%- include('footer.ejs') %>

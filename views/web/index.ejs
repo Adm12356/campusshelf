@@ -1,0 +1,43 @@
+<%- include('header.ejs') %>
+
+<main id="appMain" class="main" data-page="home">
+  <section class="welcome-banner">
+    <div>
+      <span class="eyebrow">THE CAMPUS MARKETPLACE</span>
+      <h1>Good finds. <em>Better prices.</em></h1>
+      <p>Discover pre-loved books, useful notes and everyday stationery from students like you.</p>
+    </div>
+    <div class="banner-art">
+      <div class="art-book book-one">NOTES</div>
+      <div class="art-book book-two">LEARN<br>MORE</div>
+      <div class="art-pencil">✎</div>
+      <div class="art-star">✳</div>
+    </div>
+  </section>
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">YOUR NEXT GREAT FIND</span>
+      <h2>Explore products</h2>
+    </div>
+    <span id="resultCount" class="muted"><%= products.length %> item<%= products.length === 1 ? '' : 's' %><%= q ? ' for "' + q + '"' : '' %></span>
+  </div>
+  <div class="category-chips" id="categoryChips">
+    <% ['All','Books','Notes','Stationery','Other'].forEach(function(c){ %>
+      <a class="chip <%= category===c ? 'selected' : '' %>" href="/home?category=<%= c %><%= q ? '&q=' + encodeURIComponent(q) : '' %>"><%= c==='All' ? 'All items' : c %></a>
+    <% }) %>
+  </div>
+  <% if (products.length) { %>
+  <div id="productGrid" class="product-grid">
+    <% products.forEach(function(p){ %><%- include('product_card.ejs', {p: p, uid: uid}) %><% }) %>
+  </div>
+  <% } else { %>
+  <div id="emptyState" class="empty-state">
+    <div>⌕</div>
+    <h3>No products found</h3>
+    <p>Try another search or category.</p>
+    <a class="btn btn-light" href="/home">Clear filters</a>
+  </div>
+  <% } %>
+</main>
+</div>
+<%- include('footer.ejs') %>

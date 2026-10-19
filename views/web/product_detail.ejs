@@ -1,0 +1,37 @@
+<%- include('header.ejs', {active: ''}) %>
+<main id="appMain" class="main" data-page="detail">
+  <% var mine = (p.uid === uid); var imgs = [p.p_img1, p.p_img2, p.p_img3]; %>
+  <div class="page-heading">
+    <div><a class="plain-link" href="javascript:history.back()">← Back</a></div>
+  </div>
+  <div class="panel">
+    <div class="detail-layout">
+      <div>
+        <div class="detail-image"><img id="mainImage" src="/images/<%= imgs[0] %>" alt="<%= p.p_name %>"></div>
+        <div class="preview-strip">
+          <% imgs.forEach(function(src, i){ %><img class="thumb" data-thumb="/images/<%= src %>" src="/images/<%= src %>" alt="Photo <%= i+1 %>"><% }) %>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow"><%= p.p_category %></span>
+        <h2><%= p.p_name %> <% if (p.status === 'sold') { %><span class="status-pill sold">Sold</span><% } %></h2>
+        <div class="detail-price"><%= money(p.p_price) %></div>
+        <span class="condition"><%= p.p_condition %></span>
+        <p><%= p.p_desc || 'No description provided.' %></p>
+        <p><strong>Seller:</strong> <%= p.seller_name %><br><strong>Contact:</strong> <%= p.contact %><br><strong>Pickup:</strong> <%= p.address %></p>
+        <div class="product-actions">
+          <button class="btn btn-light heart-inline" data-favorite="<%= p.p_id %>"><span class="heart-icon"><%= p.is_fav ? '♥' : '♡' %></span> <%= p.is_fav ? 'Saved' : 'Save' %></button>
+          <% if (mine) { %>
+            <a class="btn btn-dark" href="/edit_product/<%= p.p_id %>">Edit listing</a>
+          <% } else if (p.status === 'sold') { %>
+            <button class="btn btn-light" disabled>Sold</button>
+          <% } else { %>
+            <button class="btn btn-dark" data-addcart="<%= p.p_id %>"><%= p.in_cart ? 'In cart ✓' : 'Add to cart' %></button>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+<%- include('footer.ejs') %>

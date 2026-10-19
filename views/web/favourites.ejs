@@ -1,0 +1,20 @@
+<%- include('header.ejs') %>
+    <main id="appMain" class="main" data-page="favourites">
+      <div class="page-heading">
+        <div>
+          <h1>Favourites</h1>
+          <p>Saved products you want to revisit.</p>
+        </div>
+      </div>
+      <div id="favouritesGrid" class="product-grid <%= products.length ? '' : 'hidden' %>">
+        <% products.forEach(function(p){ %><%- include('product_card.ejs', {p: p, uid: uid}) %><% }) %>
+      </div>
+      <div id="favouritesEmpty" class="panel empty-state <%= products.length ? 'hidden' : '' %>">
+        <div>♡</div>
+        <h3>No favourites yet</h3>
+        <p>Tap the heart on any product to save it here.</p>
+        <a class="btn btn-dark" href="/home">Explore products</a>
+      </div>
+    </main>
+  </div>
+<%- include('footer.ejs') %>

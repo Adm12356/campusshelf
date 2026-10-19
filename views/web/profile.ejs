@@ -1,0 +1,46 @@
+<%- include('header.ejs') %>
+
+<main id="appMain" class="main">
+<div class="page-heading">
+  <div>
+    <h1>My profile</h1>
+    <p>Your personal details for listings and seller contact.</p>
+  </div>
+</div>
+<div class="panel">
+  <div class="profile-head">
+    <div class="avatar" id="profileAvatar"><%= user.name.charAt(0).toUpperCase() %></div>
+    <div>
+      <h2 id="profileName"><%= user.name %></h2>
+      <p>CampusShelf member</p>
+    </div>
+  </div>
+  <% if (saved) { %><div class="alert ok">Profile saved.</div><% } %>
+  <form id="profileForm" class="form-grid" action="/profile_save" method="post">
+    <div class="field">
+      <label>Full name</label>
+      <input name="name" required value="<%= user.name %>">
+    </div>
+    <div class="field">
+      <label>Contact number</label>
+      <input name="contact" required value="<%= user.contact %>">
+    </div>
+    <div class="field full-field">
+        <label>Address / campus location</label>
+        <textarea name="address"><%= user.address %></textarea>
+    </div>
+    <div class="field full-field">
+        <label>Email</label>
+        <input name="email" disabled value="<%= user.email %>">
+    </div>
+    <div class="field full-field">
+        <div class="form-actions" style="justify-content:flex-start;margin-top:0">
+          <button class="btn btn-dark" type="submit">Save profile</button>
+          <a class="btn btn-light" href="/logout">Log out</a>
+        </div>
+    </div>
+  </form>
+</div>
+</main>
+  </div>
+  <%- include('footer.ejs') %>

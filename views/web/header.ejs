@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusShelf | Student Marketplace</title><link rel="stylesheet" href="/web/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="<%= name ? '/home' : '/' %>"><span class="brand-mark">C</span><span>Campus<span class="brand-accent">Shelf</span><small>Student-to-student marketplace</small></span></a>
+  <% if (name) { %>
+  <form class="search-wrap" action="/home" method="get"><span>⌕</span><input id="searchInput" name="q" value="<%= q %>" type="search" placeholder="Search books, notes, stationery..."><select id="categoryFilter" name="category" onchange="this.form.submit()"><% ['All','Books','Notes','Stationery','Other'].forEach(function(c){ %><option value="<%= c %>" <%= category===c?'selected':'' %>><%= c==='All'?'All categories':c %></option><% }) %></select></form>
+  <div class="top-actions"><a class="icon-btn" href="/favourites">♡ <span class="nav-label">Saved</span></a><a class="icon-btn" href="/cart">🛒 <span class="nav-label">Cart</span><b id="cartCount" class="count"><%= cartCount %></b></a><a class="avatar" id="profileShortcut" href="/profile"><%= name.charAt(0).toUpperCase() %></a></div>
+  <% } %>
+</header>
+<div class="layout <%= name ? '' : 'guest' %>">
+<% if (name) { %>
+<aside class="sidebar">
+  <div class="side-user"><div class="avatar large" id="sideAvatar"><%= name.charAt(0).toUpperCase() %></div><div><strong id="sideName">Welcome, <%= name %>!</strong><small id="sideEmail">Your campus marketplace</small></div></div>
+  <p class="side-heading">MENU</p>
+  <a class="side-link <%= active==='home'?'active':'' %>" href="/home"><span>⌂</span> Home</a>
+  <a class="side-link <%= active==='add-product'?'active':'' %>" href="/add_product"><span>＋</span> Sell an item</a>
+  <a class="side-link <%= active==='my-listings'?'active':'' %>" href="/my_listings"><span>▤</span> My listings</a>
+  <a class="side-link <%= active==='favourites'?'active':'' %>" href="/favourites"><span>♡</span> Favourites</a>
+  <a class="side-link <%= active==='cart'?'active':'' %>" href="/cart"><span>🛒</span> Cart</a>
+  <a class="side-link <%= active==='notifications'?'active':'' %>" href="/notifications"><span>♧</span> Notifications <i id="notificationDot" style="display:<%= unread>0?'block':'none' %>"></i></a>
+  <a class="side-link <%= active==='profile'?'active':'' %>" href="/profile"><span>◉</span> My profile</a>
+  <a class="side-link" href="/logout"><span>⏻</span> Logout</a>
+  <div class="sidebar-bottom"><div class="tip-icon">✦</div><strong>Give your things a second life.</strong><p>Sell what you no longer need and help another student save.</p><a class="btn btn-light full" href="/add_product">Start selling →</a></div>
+</aside>
+<% } %>

@@ -1,0 +1,25 @@
+<% var mine = (p.uid === uid); %>
+<article class="product-card" data-card="<%= p.p_id %>">
+  <a class="product-image" href="/product/<%= p.p_id %>">
+    <img src="/images/<%= p.p_img1 %>" alt="<%= p.p_name %>" loading="lazy">
+    <span class="product-tag"><%= p.p_category %></span>
+    <% if (p.status === 'sold') { %><span class="sold-badge">SOLD</span><% } %>
+  </a>
+  <button class="heart <%= p.is_fav ? 'saved' : '' %>" data-favorite="<%= p.p_id %>" title="Save to favourites"><%= p.is_fav ? '♥' : '♡' %></button>
+  <div class="product-info">
+    <span class="category"><%= p.p_category %></span>
+    <h3 title="<%= p.p_name %>"><%= p.p_name %></h3>
+    <div class="price-row"><span class="price"><%= money(p.p_price) %></span><span class="condition"><%= p.p_condition || 'Used' %></span></div>
+    <div class="seller"><span class="seller-dot"><%= (p.seller_name || 'S').charAt(0).toUpperCase() %></span><span><%= mine ? 'Your listing' : 'Listed by ' + (p.seller_name || 'Student') %></span></div>
+    <div class="product-actions">
+      <a class="btn btn-light" href="/product/<%= p.p_id %>">View details</a>
+      <% if (mine) { %>
+        <a class="btn btn-dark" href="/edit_product/<%= p.p_id %>">Edit</a>
+      <% } else if (p.status === 'sold') { %>
+        <button class="btn btn-light" disabled>Sold</button>
+      <% } else { %>
+        <button class="btn btn-dark" data-addcart="<%= p.p_id %>"><%= p.in_cart ? 'In cart ✓' : 'Add to cart' %></button>
+      <% } %>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,69 @@
+ <%- include('header.ejs') %>
+
+
+
+      <main class="dashboard-content">
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+              <div>
+                <p class="eyebrow mb-1">Inputs</p>
+                <h1 class="h3 mb-1">Forms</h1>
+                <p class="text-muted mb-0">Reusable form controls, validation states, and field layouts.</p>
+              </div>
+            </div>
+            
+          </div>
+                         <% for(var i=0;i<users.length;i++){ %>
+
+          <section class="row g-3">
+            <div class="col-12 col-xl-12">
+
+              <form class="panel needs-validation"  action="/admin/user_update_save" method="post">
+                <div class="panel-header">
+                    <input type="hidden" name="p_id" value="<%= users[i].p_id %>">
+                  <div>
+                    <h2 class="h5 mb-1 section-title">
+                      <i class="bi bi-ui-checks-grid" aria-hidden="true"></i>
+                      <span>User Update Form</span>
+                    </h2>
+                    <p class="text-muted mb-0">Bootstrap-ready fields with custom validation feedback.</p>
+                  </div>
+                </div>
+                
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label" >User Name</label>
+                        <input class="form-control" type="text" name="p_name" id="name" value="<%= users[i].name %>">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" >User Contact</label>
+                        <input class="form-control" type="number" name="p_name" id="contact" value="<%= users[i].contact %>">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="formMessage">User Address</label>
+                        <textarea class="form-control" id="address" rows="5" required name="address"  placeholder="Short note..." ><%= users[i].address %></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" >User Email</label>
+                        <input class="form-control" type="email" name="p_name" id="email" value="<%= users[i].email %>">
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-send" aria-hidden="true" ></i> Update User Details
+                  </button>
+                  <button></button>
+                </div>
+              </form>
+            </div>
+          </section>
+                      <% } %>
+
+        </div>
+      </main>
+
+ <%- include('footer.ejs') %>
+

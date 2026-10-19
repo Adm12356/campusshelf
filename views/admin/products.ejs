@@ -1,0 +1,94 @@
+ <%- include('header.ejs') %>
+
+
+
+      <main class="dashboard-content">
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-table" aria-hidden="true"></i></span>
+              <div>
+                <p class="eyebrow mb-1">Data</p>
+                <h1 class="h3 mb-1">Tables</h1>
+                <p class="text-muted mb-0">Use responsive, searchable tables for operational records.</p>
+              </div>
+            </div>
+            
+          </div>
+
+          <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2 class="h5 mb-1 section-title"><i class="bi bi-table" aria-hidden="true"></i>
+                        <span>Product Table</span>
+                    </h2>
+                    <p class="text-muted mb-0">Searchable responsive table for data.</p>
+                </div>
+                <input class="form-control form-control-sm table-search" type="search" placeholder="Search Product" data-table-search="ordersTable" aria-label="Search orders">
+            </div>
+            <div class="table-responsive">
+                <table class="table align-middle mb-0" id="ordersTable" data-searchable-table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Condition</th>
+                            <th>Image1</th>
+                            <th>Image2</th>
+                            <th>Image3</th>
+                            <th>Seller Name</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                         <% for(var i=0;i<products.length;i++){ %>
+
+                        <tr>
+
+                            <td ><%= i+1 %></td>
+                            <td><%= products[i].p_name %></td>
+                            <td><%= products[i].p_category %></td>
+                            <td><%= products[i].p_price %></td>
+                            <td><%= products[i].p_desc %></td>
+                            <td><%= products[i].p_condition %></td>
+                            <td>
+                                <div class="table-media">
+                                    <img  src="/images/<%= products[i].p_img1 %>" height="100px">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="table-media">
+                                    <img  src="/images/<%= products[i].p_img2 %>" height="100px">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="table-media">
+                                    <img  src="/images/<%= products[i].p_img3 %>" height="100px">
+                                </div>
+                            </td>
+                            <td><%= products[i].seller_name %></td>
+                            <td><%= products[i].contact %></td>
+                            <td><%= products[i].address %></td>
+                            <td class="text-end">
+                                <form action="/admin/product_delete/<%= products[i].p_id %>/<%= products[i].p_name %>" method="post"><button class="btn btn-light btn-sm" type="submit">Delete</button></form>
+                                <form action="/admin/product_update/<%= products[i].p_id %>" method="post"><button class="btn btn-light btn-sm" type="submit">Edit</button></form>
+                                <form action="/admin/product_sold/<%= products[i].p_id %>/<%= products[i].p_name %>" method="post"><button class="btn btn-light btn-sm" type="submit">Mark Sold</button></form>
+                            </td>
+                        </tr>
+                      <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+          </section>
+        </div>
+      </main>
+
+  <%- include('footer.ejs') %>
+

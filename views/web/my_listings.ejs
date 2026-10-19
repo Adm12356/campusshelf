@@ -1,0 +1,46 @@
+<%- include('header.ejs') %>
+
+    <main id="appMain" class="main">
+        <div class="page-heading">
+            <div>
+                <h1>My listings</h1>
+                <p>Manage the products you have put up for sale.</p>
+            </div>
+            <a class="btn btn-dark" href="/add_product">＋ Add product</a>
+        </div>
+        <div class="panel">
+            <% if (products.length) { %>
+            <div id="myListings">
+              <% products.forEach(function(p){ %>
+              <div class="list-row <%= p.status === 'sold' ? 'is-sold' : '' %>">
+                <a href="/product/<%= p.p_id %>"><img src="/images/<%= p.p_img1 %>" alt="<%= p.p_name %>"></a>
+                <div class="list-details">
+                  <strong><a class="plain-link" href="/product/<%= p.p_id %>"><%= p.p_name %></a></strong>
+                  <small><%= p.p_category %> · <%= p.p_condition %> · listed <%= ago(p.created_at) %></small>
+                  <span class="status-pill <%= p.status %>"><%= p.status === 'sold' ? 'Sold' : 'Available' %></span>
+                </div>
+                <span class="list-price"><%= money(p.p_price) %></span>
+                <div class="row-actions">
+                  <a class="small-btn" href="/edit_product/<%= p.p_id %>">Edit</a>
+                  <form action="/product_status/<%= p.p_id %>" method="post">
+                    <button class="small-btn" type="submit"><%= p.status === 'sold' ? 'Mark available' : 'Mark as sold' %></button>
+                  </form>
+                  <form action="/product_delete/<%= p.p_id %>" method="post" onsubmit="return confirm('Delete this listing permanently?')">
+                    <button class="small-btn danger" type="submit">Delete</button>
+                  </form>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+            <% } else { %>
+            <div id="listingsEmpty" class="empty-state">
+                <div>▤</div>
+                <h3>You haven't listed anything yet</h3>
+                <p>Add your first book, notes or stationery item.</p>
+                <a class="btn btn-dark" href="/add_product">＋ Add a product</a>
+            </div>
+            <% } %>
+        </div>
+    </main>
+  </div>
+  <%- include('footer.ejs') %>

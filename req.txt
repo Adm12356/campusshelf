@@ -1,0 +1,41 @@
+ Website to sell old/2nd hand books notes and stationary
+ 
+ 
+ Core Modules & Requirements
+ 1. Authentication 
+  Secure login 
+  Password hashing 
+  Forgot password 
+  Role-based access (Admin, new user)
+
+
+
+2. Website pages
+Home
+Browse Products	
+Login / Register
+add product	-Product form with multiple images
+My Listings	Edit, delete and mark products as sold
+Favourites	Save and revisit products
+My Profile	Name, profile photo, contact details and campus
+My Messages	Buyer-seller enquiries and conversations
+Notifications	New messages and listing updates
+cart
+
+3.. Product Management - add/edit/delete product
+product category
+product name
+product image (min. 3)
+selling price
+inport address from seller details*
+
+4. user Management
+user details - name , contact (2 nos), address , otp verfiy mail - then gets verified tag
+
+
+
+
+Admin Panel-
+1.users table with edit delete 
+2.products table with edit delete
+3.dashboard shows sold products upto today , total users , total products for sell 

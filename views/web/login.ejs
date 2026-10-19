@@ -1,0 +1,32 @@
+<%- include('header.ejs') %>
+
+    <main id="appMain" class="main">
+        <section class="auth-wrap">
+            <div class="auth-brand">
+                <div class="brand-mark">C</div>
+                <h1>Welcome back</h1>
+                <p>Log in to your CampusShelf account.</p>
+            </div>
+            <div class="panel">
+                <% if (err) { %><div class="alert err">Incorrect email or password.</div><% } %>
+                <form id="loginForm" class="form-grid" action="/login_check" method="post">
+                    <div class="field full-field">
+                        <label>Email *</label>
+                        <input name="email" type="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="field full-field">
+                        <label>Password *</label>
+                        <input name="password" type="password" required placeholder="Enter password">
+                    </div>
+                    <div class="field full-field">
+                        <button class="btn btn-dark full" type="submit">Log in</button>
+                    </div>
+                </form>
+                <p>New here? 
+                    <a class="inline-link" href="/register">Create an account</a>
+                </p>
+            </div>
+        </section>    
+    </main>
+  </div>
+  <%- include('footer.ejs') %>
